@@ -26,6 +26,7 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: space-around;
   flex: 1;
+  width: 100%;
 
   .headerText {
     color: #202124;
@@ -49,7 +50,7 @@ export const Content = styled.div`
   .centerBox {
     display: flex;
     flex-direction: column;
-    width: 370px;
+    width: 100%; /*370px;*/
   }
 
   > span {

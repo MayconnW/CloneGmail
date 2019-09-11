@@ -9,20 +9,29 @@ export default function Login() {
   const [mailInput, setMailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [account, setAccount] = useState({
-    email: "",
-    name: "",
-    initial: "",
-    hasAccount: false
+    email: "mayconnw@gmail.com",
+    name: "Mayconn",
+    initial: "M",
+    hasAccount: true
   });
 
   function handleNext() {
     if (mailInput === "") {
       return;
     }
+    let tmpMail = mailInput;
+    let tmpName = mailInput;
+    const tmpInicial = mailInput.substr(0, 1);
+    if (!tmpMail.includes("@")) {
+      tmpMail = `${tmpMail}@gmail.com`;
+    }
+    if (tmpName.includes("@")) {
+      tmpName = tmpName.substr(0, tmpMail.indexOf("@"));
+    }
     setAccount({
-      email: mailInput,
-      name: mailInput,
-      initial: "M",
+      email: tmpMail,
+      name: tmpName,
+      initial: tmpInicial,
       hasAccount: true
     });
   }
@@ -47,27 +56,36 @@ export default function Login() {
           <div className="centerBox">
             {account.hasAccount ? (
               <Input
+                name="pass"
                 label="Digite sua senha"
                 type="password"
                 required="true"
                 onChange={setPasswordInput}
+                value=""
               />
             ) : (
               <Input
+                name="user"
                 label="E-mail ou telefone"
                 type="email"
                 required="true"
                 onChange={setMailInput}
               />
             )}
-            <Link href="#">Esqueceu seu e-mail?</Link>
+            {!account.hasAccount && <Link href="#">Esqueceu seu e-mail?</Link>}
           </div>
-          <span>
-            Não está no seu computador? Use o modo visitante para fazer o login
-            com privacidade. <Link href="#">Saiba mais</Link>
-          </span>
+          {!account.hasAccount && (
+            <span>
+              Não está no seu computador? Use o modo visitante para fazer o
+              login com privacidade. <Link href="#">Saiba mais</Link>
+            </span>
+          )}
           <div className="footerActions">
-            <Link href="#">Criar conta</Link>
+            {account.hasAccount ? (
+              <Link href="#">Esqueceu a senha?</Link>
+            ) : (
+              <Link href="#">Criar conta</Link>
+            )}
             <Button onClick={handleNext}>Próxima</Button>
           </div>
         </Content>
